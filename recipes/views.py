@@ -21,7 +21,7 @@ class RecipeDeleteView(LoginRequiredMixin, DeleteView, UserPassesTestMixin):
     template_name = 'recipe_delete.html'
     success_url = reverse_lazy('recipe_list')
 
-    def test_func(self): #function that checks if the user who wants to delete the recipe is the author
+    def test_user(self): #function that checks if the user who wants to delete the recipe is the author
         obj = self.get_object()
         return obj.author == self.request.user
 
@@ -30,7 +30,7 @@ class RecipeUpdateView(LoginRequiredMixin, UpdateView, UserPassesTestMixin):
     template_name = 'recipe_edit.html'
     fields = ('title', 'description', 'category')
 
-    def test_func(self):
+    def test_user(self):
         obj = self.get_object()
         return obj.author == self.request.user
 
