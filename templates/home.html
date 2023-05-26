@@ -5,8 +5,8 @@
     <h1>Home page</h1>
     <p>
         Hello,
-        {% if current_user.is_authenticated %}
-            {{ current_user.username }}
+        {% if user.is_authenticated %}
+            {{ user.username }}
         {% else %}
             stranger
         {% endif %}
