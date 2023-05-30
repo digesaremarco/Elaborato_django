@@ -4,9 +4,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import RecipeForm
 from .models import Recipe
 
+
 def AllRecipes(request):
     recipes = Recipe.objects.all()
     return render(request, 'home.html', {'recipes': recipes})
+
 
 @login_required
 def NewRecipe(request):
@@ -37,7 +39,19 @@ def UpdateRecipe(request, recipe_id):
 
     return render(request, 'update_recipe.html', {'form': form})
 
+
 @login_required
 def MyRecipes(request):
     my_recipes = Recipe.objects.filter(author=request.user)
     return render(request, 'my_recipes.html', {'my_recipes': my_recipes})
+
+
+@login_required
+def DeleteRecipe(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id, author=request.user)
+
+    if request.method == 'POST':
+        recipe.delete()
+        return redirect('home')
+
+    return render(request, 'delete_recipe.html', {'recipe': recipe})
