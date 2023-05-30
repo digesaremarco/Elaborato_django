@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block title %} Home page {% endblock %}
+
+{% block content %}
+    <h1>{{ recipe.title }}</h1>
+    <p>Author : {{ recipe.author }}</p>
+    <p>Description : {{ recipe.description }}</p>
+{% endblock %}

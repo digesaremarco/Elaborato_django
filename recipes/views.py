@@ -55,3 +55,7 @@ def DeleteRecipe(request, recipe_id):
         return redirect('home')
 
     return render(request, 'delete_recipe.html', {'recipe': recipe})
+
+def ViewRecipe(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+    return render(request, 'view_recipe.html', {'recipe': recipe})
