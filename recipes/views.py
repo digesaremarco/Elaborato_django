@@ -9,6 +9,21 @@ def AllRecipes(request):
     return render(request, 'home.html', {'recipes': recipes})
 
 @login_required
+def NewRecipe(request):
+    if request.method == 'POST':
+        form = RecipeForm(request.POST)
+        if form.is_valid():
+            recipe = form.save(commit=False)
+            recipe.author = request.user
+            recipe.save()
+            return redirect('home')
+    else:
+        form = RecipeForm()
+
+    return render(request, 'create_recipe.html', {'form': form})
+
+
+@login_required
 def UpdateRecipe(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id, author=request.user)
 
