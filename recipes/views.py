@@ -1,43 +1,23 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.shortcuts import render
-from django.urls import reverse_lazy
-from django.views.generic import CreateView, DeleteView, UpdateView
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, redirect
 
+from .forms import RecipeForm
 from .models import Recipe
 
-# Create your views here.
+def AllRecipes(request):
+    recipes = Recipe.objects.all()
+    return render(request, 'home.html', {'recipes': recipes})
 
-class RecipeCreateView(LoginRequiredMixin, CreateView):
-    model = Recipe
-    template_name = 'recipe_new.html'
-    fields = ('title', 'description', 'category')
+@login_required
+def UpdateRecipe(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id, author=request.user)
 
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, instance=recipe)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = RecipeForm(instance=recipe)
 
-class RecipeDeleteView(LoginRequiredMixin, DeleteView, UserPassesTestMixin):
-    model = Recipe
-    template_name = 'recipe_delete.html'
-    success_url = reverse_lazy('recipe_list')
-
-    def test_user(self): #function that checks if the user who wants to delete the recipe is the author
-        obj = self.get_object()
-        return obj.author == self.request.user
-
-class RecipeUpdateView(LoginRequiredMixin, UpdateView, UserPassesTestMixin):
-    model = Recipe
-    template_name = 'recipe_edit.html'
-    fields = ('title', 'description', 'category')
-
-    def test_user(self):
-        obj = self.get_object()
-        return obj.author == self.request.user
-
-class RecipeDetailView(LoginRequiredMixin, UpdateView):
-    model = Recipe
-    template_name = 'recipe_detail.html'
-
-class RecipeListView(LoginRequiredMixin, UpdateView):
-    model = Recipe
-    template_name = 'recipe_list.html'
+    return render(request, 'update_recipe.html', {'form': form})

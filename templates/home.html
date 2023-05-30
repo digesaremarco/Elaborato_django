@@ -2,14 +2,16 @@
 {% block title %} Home page {% endblock %}
 
 {% block content %}
-    <h1>Home page</h1>
-    <p>
-        Hello,
-        {% if user.is_authenticated %}
-            {{ user.username }}
-        {% else %}
-            stranger
-        {% endif %}
-        !
-    </p>
+    {% for recipe in recipes %}
+        <div class="card w-75">
+            <div class="card-body">
+                <h5 class="card-title">{{ recipe.title }}</h5>
+                <p class="card-text">Autore: {{ recipe.author }}</p>
+                <p class="card-text">Date: {{ recipe.date }}</p>
+                <a href="#" class="btn btn-primary">Button</a>
+            </div>
+        </div>
+    {% empty %}
+        <li>no recipe available.</li>
+    {% endfor %}
 {% endblock %}
