@@ -36,3 +36,8 @@ def UpdateRecipe(request, recipe_id):
         form = RecipeForm(instance=recipe)
 
     return render(request, 'update_recipe.html', {'form': form})
+
+@login_required
+def MyRecipes(request):
+    my_recipes = Recipe.objects.filter(author=request.user)
+    return render(request, 'my_recipes.html', {'my_recipes': my_recipes})

@@ -15,7 +15,8 @@
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
             <li><a href="{% url 'home' %}" class="nav-link px-2 link-secondary">Home</a></li>
             {% if user.is_authenticated %}
-                <li><a href="{% url 'create_recipe' %}" class="nav-link px-2 link-dark">New recipe</a></li><!-- da cambiare link -->
+                <li><a href="{% url 'create_recipe' %}" class="nav-link px-2 link-dark">New recipe</a></li>
+                <li><a href="{% url 'my_recipes' %}" class="nav-link px-2 link-dark">My recipes</a></li>
             {% endif %}
         </ul>
 

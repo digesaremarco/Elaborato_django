@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Recipes{% endblock %}
+
+{% block content %}
+    <h1>My recipes</h1>
+    {% if my_recipes %}
+        {% for recipe in my_recipes %}
+            <div class="card w-75">
+                <div class="card-body">
+                    <h5 class="card-title">{{ recipe.title }}</h5>
+                    <p class="card-text">Autore: {{ recipe.author }}</p>
+                    <p class="card-text">Date: {{ recipe.date }}</p>
+                    <a href="#" class="btn btn-primary">Button</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No recipes yet</p>
+    {% endif %}
+{% endblock %}
