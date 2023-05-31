@@ -2,13 +2,17 @@
 {% block title %} Home page {% endblock %}
 
 {% block content %}
+    <form method="GET" action="{% url 'search_recipe' %}">
+        <input type="text" name="q" placeholder="Search recipe">
+        <button type="submit" class="btn btn-primary" >Search</button>
+    </form>
     {% for recipe in recipes %}
         <div class="card w-75">
             <div class="card-body">
                 <h5 class="card-title">{{ recipe.title }}</h5>
                 <p class="card-text">Autore: {{ recipe.author }}</p>
                 <p class="card-text">Date: {{ recipe.date }}</p>
-                <a href="{% url 'view_recipe' recipe.id%}" class="btn btn-primary">View</a>
+                <a href="{% url 'view_recipe' recipe.id %}" class="btn btn-primary">View</a>
             </div>
         </div>
     {% empty %}

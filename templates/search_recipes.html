@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Risultati della ricerca</h2>
+
+    <form method="GET" action="{% url 'search_recipe' %}">
+        <input type="text" name="q" placeholder="Search recipe">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    {% if recipes %}
+        <ul>
+            {% for recipe in recipes %}
+                <h1>{{ recipe.title }}</h1>
+                <p>Author : {{ recipe.author }}</p>
+                <p>Description : {{ recipe.description }}</p>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Recipe not found</p>
+    {% endif %}
+{% endblock %}
+

@@ -78,3 +78,8 @@ def RemoveFavorite(request, recipe_id):
 def ViewFavorites(request):
     favorite_recipe = request.user.favorite.all()
     return render(request, 'view_favorites.html', {'recipe': favorite_recipe})
+
+def SearchRecipe(request):
+    query = request.GET.get('q')
+    recipes = Recipe.objects.filter(title__icontains=query)
+    return render(request, 'search_recipes.html', {'recipes': recipes, 'query': query})
