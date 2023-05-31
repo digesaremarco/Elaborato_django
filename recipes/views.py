@@ -56,6 +56,19 @@ def DeleteRecipe(request, recipe_id):
 
     return render(request, 'delete_recipe.html', {'recipe': recipe})
 
+
 def ViewRecipe(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)
     return render(request, 'view_recipe.html', {'recipe': recipe})
+
+
+def AddFavorite(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+    request.user.favorite.add(recipe)
+    return redirect('view_recipe', recipe_id=recipe_id)
+
+
+def RemoveFavorite(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+    request.user.favorite.remove(recipe)
+    return redirect('view_recipe', recipe_id=recipe_id)

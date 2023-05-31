@@ -10,6 +10,7 @@ class Recipe(models.Model):
     category = models.ForeignKey('categories.Category', on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     date = models.DateTimeField(auto_now_add=True, null=True)
+    favorite = models.ManyToManyField(User, related_name='favorite', blank=True)
 
     def __str__(self):
         return self.title

@@ -1,8 +1,24 @@
 {% extends 'base.html' %}
-{% block title %} Home page {% endblock %}
+{% block title %} View recipe {% endblock %}
 
 {% block content %}
     <h1>{{ recipe.title }}</h1>
     <p>Author : {{ recipe.author }}</p>
     <p>Description : {{ recipe.description }}</p>
+    {% if request.user.is_authenticated %}
+        {% if request.user in recipe.favorite.all %}
+            <form action="{% url 'remove_favorite' recipe.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Rimuovi dai preferiti</button>
+            </form>
+        {% else %}
+            <form action="{% url 'add_favorite' recipe.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Aggiungi ai preferiti</button>
+            </form>
+        {% endif %}
+    {% endif %}
 {% endblock %}
+
+
+
