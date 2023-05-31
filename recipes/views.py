@@ -72,3 +72,9 @@ def RemoveFavorite(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)
     request.user.favorite.remove(recipe)
     return redirect('view_recipe', recipe_id=recipe_id)
+
+
+@login_required
+def ViewFavorites(request):
+    favorite_recipe = request.user.favorite.all()
+    return render(request, 'view_favorites.html', {'recipe': favorite_recipe})

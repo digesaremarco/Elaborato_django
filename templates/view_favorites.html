@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Favorite recipes</h1>
+  {% if recipe %}
+    <ul>
+      {% for recipe in recipe %}
+        <li>{{ recipe.title }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Nessuna ricetta preferita.</p>
+  {% endif %}
+{% endblock %}

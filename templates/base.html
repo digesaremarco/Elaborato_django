@@ -17,6 +17,7 @@
             {% if user.is_authenticated %}
                 <li><a href="{% url 'create_recipe' %}" class="nav-link px-2 link-dark">New recipe</a></li>
                 <li><a href="{% url 'my_recipes' %}" class="nav-link px-2 link-dark">My recipes</a></li>
+                <li><a href="{% url 'view_favorites' %}" class="nav-link px-2 link-dark">Favorites</a></li>
             {% endif %}
         </ul>
 
