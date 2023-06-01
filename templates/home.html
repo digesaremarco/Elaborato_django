@@ -2,19 +2,30 @@
 {% block title %} Home page {% endblock %}
 
 {% block content %}
-    <form method="GET" action="{% url 'search_recipe' %}">
-        <input type="text" name="q" placeholder="Search recipe">
-        <button type="submit" class="btn btn-primary" >Search</button>
+    <form class="form-inline" method="GET" action="{% url 'search_recipe' %}">
+        <div class="row">
+            <div class="col-3">
+                <input type="text" class="form-control" name="q" placeholder="Search recipe">
+            </div>
+            <div class="col-2">
+                <button type="submit" class="btn btn-primary mb-2">Search</button>
+            </div>
+        </div>
     </form>
     {% for recipe in recipes %}
-        <div class="card w-75">
+        <div class="card">
+            {% if recipe.photo %}
+                <img src="{{ recipe.photo.url }}" alt="{{ recipe.title }}"/>
+            {% endif %}
             <div class="card-body">
                 <h5 class="card-title">{{ recipe.title }}</h5>
-                <p class="card-text">Autore: {{ recipe.author }}</p>
-                <p class="card-text">Date: {{ recipe.date }}</p>
+                <p class="card-text">Author: {{ recipe.author }}</p>
+                <p class="card-text"><small class="text-muted">Date: {{ recipe.date }}</small></p>
                 <a href="{% url 'view_recipe' recipe.id %}" class="btn btn-primary">View</a>
             </div>
         </div>
+
+        <br>
     {% empty %}
         <li>no recipe available.</li>
     {% endfor %}

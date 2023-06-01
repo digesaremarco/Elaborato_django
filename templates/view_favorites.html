@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Favorite recipes</h1>
-  {% if recipe %}
-    <ul>
-      {% for recipe in recipe %}
-        <li>{{ recipe.title }}</li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>No favorite recipes yet</p>
-  {% endif %}
+    <h1>Favorite recipes</h1>
+    {% if recipe %}
+        <ul>
+            {% for recipe in recipe %}
+                <li><h5><a href="{% url 'view_recipe' recipe.id %}" style="color: black">{{ recipe.title }}</a></h5></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No favorite recipes yet</p>
+    {% endif %}
 {% endblock %}

@@ -12,10 +12,11 @@
                     <h5 class="card-title">{{ recipe.title }}</h5>
                     <p class="card-text">Autore: {{ recipe.author }}</p>
                     <p class="card-text">Date: {{ recipe.date }}</p>
-                    <a href="{% url 'update_recipe' recipe.id%}" class="btn btn-primary">Modify</a>
-                    <a href="{% url 'delete_recipe' recipe.id%}" class="btn btn-primary" style="background-color: red; border-color: red">Delete</a>
+                    <a href="{% url 'update_recipe' recipe.id %}" class="btn btn-primary">Modify</a>
+                    <a href="{% url 'delete_recipe' recipe.id %}" class="btn btn-danger">Delete</a>
                 </div>
             </div>
+            <br>
         {% endfor %}
     {% else %}
         <p>No recipes yet</p>

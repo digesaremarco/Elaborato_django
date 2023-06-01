@@ -13,7 +13,7 @@ def AllRecipes(request):
 @login_required
 def NewRecipe(request):
     if request.method == 'POST':
-        form = RecipeForm(request.POST)
+        form = RecipeForm(request.POST, request.FILES)
         if form.is_valid():
             recipe = form.save(commit=False)
             recipe.author = request.user
@@ -30,7 +30,7 @@ def UpdateRecipe(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id, author=request.user)
 
     if request.method == 'POST':
-        form = RecipeForm(request.POST, instance=recipe)
+        form = RecipeForm(request.POST,request.FILES, instance=recipe)
         if form.is_valid():
             form.save()
             return redirect('home')
@@ -62,12 +62,14 @@ def ViewRecipe(request, recipe_id):
     return render(request, 'view_recipe.html', {'recipe': recipe})
 
 
+@login_required
 def AddFavorite(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)
     request.user.favorite.add(recipe)
     return redirect('view_recipe', recipe_id=recipe_id)
 
 
+@login_required
 def RemoveFavorite(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)
     request.user.favorite.remove(recipe)

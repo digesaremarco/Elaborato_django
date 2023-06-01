@@ -2,23 +2,29 @@
 {% block title %} View recipe {% endblock %}
 
 {% block content %}
-    <h1>{{ recipe.title }}</h1>
-    <p>Author : {{ recipe.author }}</p>
-    <p>Description : {{ recipe.description }}</p>
-    {% if request.user.is_authenticated %}
-        {% if request.user in recipe.favorite.all %}
-            <form action="{% url 'remove_favorite' recipe.id %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-danger">remove from favorite</button>
-            </form>
-        {% else %}
-            <form action="{% url 'add_favorite' recipe.id %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-primary">add to favorite</button>
-            </form>
-        {% endif %}
-    {% endif %}
+    <div class="card text-center">
+        <div class="card-header">
+            {{ recipe.category }}
+        </div>
+        <div class="card-body">
+            <h3 class="card-title">{{ recipe.title }}</h3>
+            <p class="card-text">{{ recipe.description }}</p>
+            {% if request.user.is_authenticated %}
+                {% if request.user in recipe.favorite.all %}
+                    <form action="{% url 'remove_favorite' recipe.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">remove from favorite</button>
+                    </form>
+                {% else %}
+                    <form action="{% url 'add_favorite' recipe.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">add to favorite</button>
+                    </form>
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="card-footer text-muted">
+            {{ recipe.author }}
+        </div>
+    </div>
 {% endblock %}
-
-
-
