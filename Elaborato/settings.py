@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-CSRF_TRUSTED_ORIGINS = ['https://djangorailway-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://web-production-6a59.up.railway.app']
 
 # Application definition
 
