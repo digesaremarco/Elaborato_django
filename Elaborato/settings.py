@@ -25,8 +25,9 @@ SECRET_KEY = 'django-insecure-osanezwu0ka+z*t4qd!o++7+)9%6*h-3kalvwq%g_)g9yh!ez9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
+CSRF_TRUSTED_ORIGINS = ['https://djangorailway-production.up.railway.app']
 
 # Application definition
 
@@ -110,8 +111,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
