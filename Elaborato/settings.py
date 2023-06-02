@@ -28,8 +28,10 @@ ALLOWED_HOSTS = ["*"]
 
 CSRF_TRUSTED_ORIGINS = ['https://web-production-e8ec.up.railway.app']
 CSRF_ALLOWED_ORIGINS = ['https://web-production-e8ec.up.railway.app']
-#CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_DOMAIN = "https://web-production-e8ec.up.railway.app"
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 
 # Application definition
 
