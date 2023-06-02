@@ -1,11 +1,10 @@
-from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, \
-    PasswordResetCompleteView
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
+from django.views.decorators.csrf import csrf_exempt
 
 from accounts.forms import UserForm
 
 
+@csrf_exempt
 def SignUp(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
