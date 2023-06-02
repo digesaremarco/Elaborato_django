@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.decorators.csrf import csrf_protect
 
 from .forms import RecipeForm
 from .models import Recipe
@@ -11,6 +12,7 @@ def AllRecipes(request):
 
 
 @login_required
+@csrf_protect
 def NewRecipe(request):
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES)
@@ -26,6 +28,7 @@ def NewRecipe(request):
 
 
 @login_required
+@csrf_protect
 def UpdateRecipe(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id, author=request.user)
 
@@ -47,6 +50,7 @@ def MyRecipes(request):
 
 
 @login_required
+@csrf_protect
 def DeleteRecipe(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id, author=request.user)
 
