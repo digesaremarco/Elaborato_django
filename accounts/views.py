@@ -1,10 +1,8 @@
 from django.shortcuts import redirect, render
-from django.views.decorators.csrf import csrf_protect
-
 from accounts.forms import UserForm
 
 
-@csrf_protect
+
 def SignUp(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
