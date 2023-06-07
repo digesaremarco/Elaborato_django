@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} Search recipe {% endblock title%}
+{% block title %} Search recipe {% endblock title %}
 
 {% block content %}
     <h2>Results</h2>
@@ -14,17 +14,21 @@
             </div>
         </div>
     </form>
-
-    {% if recipes %}
-        <ul>
-            {% for recipe in recipes %}
-                <h1><a href="{% url 'view_recipe' recipe.id %}" style="color: black; text-decoration: none">{{ recipe.title }}</a></h1>
-                <p>Author : {{ recipe.author }}</p>
-                <p>Description : {{ recipe.description }}</p>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>Recipe not found</p>
-    {% endif %}
+    {% for recipe in recipes %}
+        <div class="card">
+            {% if recipe.photo %}
+                <img src="{{ recipe.photo.url }}" alt="{{ recipe.title }}"/>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ recipe.title }}</h5>
+                <p class="card-text">Author: {{ recipe.author }}</p>
+                <p class="card-text"><small class="text-muted">Date: {{ recipe.date }}</small></p>
+                <a href="{% url 'view_recipe' recipe.id %}" class="btn btn-primary">View</a>
+            </div>
+        </div>
+        <br>
+    {% empty %}
+        <h5>no recipe available.</h5>
+    {% endfor %}
 {% endblock %}
 

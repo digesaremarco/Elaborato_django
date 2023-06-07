@@ -1,15 +1,22 @@
 {% extends 'base.html' %}
-{% block title %} View favorites {% endblock title%}
+{% block title %} View favorites {% endblock title %}
 
 {% block content %}
     <h1>Favorite recipes</h1>
-    {% if recipe %}
-        <ul>
-            {% for recipe in recipe %}
-                <li><h5><a href="{% url 'view_recipe' recipe.id %}" style="color: black">{{ recipe.title }}</a></h5></li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No favorite recipes yet</p>
-    {% endif %}
+    {% for recipe in recipe %}
+        <div class="card">
+            {% if recipe.photo %}
+                <img src="{{ recipe.photo.url }}" alt="{{ recipe.title }}"/>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ recipe.title }}</h5>
+                <p class="card-text">Author: {{ recipe.author }}</p>
+                <p class="card-text"><small class="text-muted">Date: {{ recipe.date }}</small></p>
+                <a href="{% url 'view_recipe' recipe.id %}" class="btn btn-primary">View</a>
+            </div>
+        </div>
+        <br>
+    {% empty %}
+        <h5>no recipe available.</h5>
+    {% endfor %}
 {% endblock %}
